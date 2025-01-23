@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статьи стримеров</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+            color: #ddd;
+        }
+        .articles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .article-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgb(255, 255, 255);
+            transition: transform 0.3s ease;
+        }
+        .article-card:hover {
+            transform: scale(1.02);
+        }
+        .article-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        .article-content {
+            padding: 15px;
+        }
+        .article-title {
+            font-size: 1.2em;
+            margin: 0 0 10px;
+        }
+        .article-body {
+            font-size: 0.95em;
+            color: #666;
+        }
+        .add-article {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+        .add-article h2 {
+            margin-bottom: 15px;
+        }
+        .add-article input,
+        .add-article textarea,
+        .add-article button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .add-article button {
+            background-color: #000000;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .add-article button:hover {
+            background-color: #300000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="add-article">
+            <h2>Добавить свою статью</h2>
+            <input type="text" id="article-title" placeholder="Название статьи" required>
+            <textarea id="article-body" rows="5" placeholder="Содержание статьи" required></textarea>
+            <input type="file" id="article-image" accept="image/*">
+            <button onclick="addArticle()">Опубликовать</button>
+        </div>
+
+        <h1>СПИСОК ПИДОРОВ</h1>
+
+        <div class="articles" id="articles-container">
+            <!-- Карточки статей появятся здесь -->
+        </div>
+    </div>
+
+    <script>
+        const articlesContainer = document.getElementById('articles-container');
+
+        // Изначальные статьи с путями к картинкам
+        const initialArticles = [
+        { title: "Xsgg", body: "Каждый мидер фидер, но не каждый фидер мидер.", image: "./img/цук.jpg" }, 
+        { title: "SYS64738", body: "Если хочешь вскрыться, ебани сальтуху с крыши. Так эффективнее!", image: "./img/2345.jpg" },
+            { title: "curssed", body: "Секс", image: "./img/45.jpg" },
+            { title: "", body: "Это не просто гнев — то, что живет во мне Пытаясь вырваться из-под контроля Прошу беги скорей, оно меня сильней Оно так хочет вырваться на волю 😈", image: "./img/1234567.jpg" },
+            { title: "аня терминатор Н.1", body: "Вообще то от спасает кофе альцгеймер", image: "./img/photo_2025-01-19_20-39-02.jpg" },
+            { title: "мамонт", body: "лох", image: "./img/photo_2024-12-30_13-53-22.jpg" },
+            { title: "Шляпа", body: "Как попасть в клуб элитных пидорасов? ", image: "./img/photo_2024-09-28_02-58-57.jpg" },
+            
+        ];
+
+        // Загрузка статей из локального хранилища или начальных статей
+        const savedArticles = JSON.parse(localStorage.getItem('articles')) || initialArticles;
+
+        function displayArticles(articles) {
+            articlesContainer.innerHTML = '';
+            articles.forEach(article => {
+                const articleCard = document.createElement('div');
+                articleCard.classList.add('article-card');
+                articleCard.innerHTML = `
+                    <img src="${article.image}" alt="${article.title}">
+                    <div class="article-content">
+                        <h3 class="article-title">${article.title}</h3>
+                        <p class="article-body">${article.body}</p>
+                    </div>
+                `;
+                articlesContainer.appendChild(articleCard);
+            });
+        }
+
+        function addArticle() {
+            const title = document.getElementById('article-title').value.trim();
+            const body = document.getElementById('article-body').value.trim();
+            const imageInput = document.getElementById('article-image');
+            const image = imageInput.files[0] ? URL.createObjectURL(imageInput.files[0]) : '';
+
+            if (title && body && image) {
+                const newArticle = { title, body, image };
+                savedArticles.push(newArticle);
+                localStorage.setItem('articles', JSON.stringify(savedArticles));
+                displayArticles(savedArticles);
+                alert('Статья добавлена успешно!');
+                document.getElementById('article-title').value = '';
+                document.getElementById('article-body').value = '';
+                imageInput.value = '';
+            } else {
+                alert('Пожалуйста, заполните все поля и выберите изображение.');
+            }
+        }
+
+        // Показать статьи при загрузке
+        displayArticles(savedArticles);
+    </script>
+</body>
+</html>

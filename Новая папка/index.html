@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-image: url(./dfb19fd856363981b08905383fdc929d.jpg);
+            color: #ffcccc;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #660000;
+            color: #ffcccc;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #990000;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #990000;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        div {
+            display: grid;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #990000;
+            color: #ffcccc;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #cc0000;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #990000;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #result {
+            color: #ffcccc;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Задание 1</h1>
+    <h2>Таблица значений функции</h1>
+    <table id="functionTable">
+        <thead>
+            <tr>
+                <th>x</th>
+                <th>f(x)</th>
+            </tr>
+        </thead>
+        <tbody>  
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <h1>Задание 2</h1>
+    <h2>Случайные точки и их количество в первой четверти</h2>
+    <div id="output"></div>
+    <br>
+    <br>
+    <h1>Задание 3</h1>
+    <h2>Игральные масти</h2>
+    <div>
+        <h1>Введите номер от 1 до 4</h1>
+        <input type="number" id="cardNumber" min="1" max="4"/>
+        <button onclick="showSuit()">Показать масть</button>
+        <p id="result"></p>
+        <img src="masti.png" alt="">
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задания с последовательностью</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff5f5;
+            color: #990000;
+            background-image: url(./dfb19fd856363981b08905383fdc929d.jpg);
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #cc0000;
+            border-radius: 5px;
+            background-color: #ffe5e5;
+            text-align: center;
+        }
+        h1 {
+            color: #cc0000;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #b30000;
+        }
+        button {
+            background-color: #cc0000;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #a30000;
+        }
+        input {
+            padding: 5px;
+            border: 1px solid #cc0000;
+            border-radius: 3px;
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+        }
+        p {
+            color: #660000;
+        }
+        strong {
+            color: #b30000;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Задания с последовательностью</h1>
+
+        <section>
+            <h2>Генерация последовательности</h2>
+            <label for="sequence-length">Длина последовательности: </label>
+            <input type="number" id="sequence-length" value="10" min="1">
+            <button onclick="runTasks()">Сгенерировать и Решить</button>
+            <p><strong>Сгенерированная последовательность:</strong> <span id="sequence"></span></p>
+        </section>
+
+        <section>
+            <h2>Результаты</h2>
+            <div id="results"></div>
+        </section>
+    </div>
+
+    <script>
+        function runTasks() {
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+
+            const length = parseInt(document.getElementById('sequence-length').value, 10);
+            let sequenceStr = '';
+            let sum = 0;
+            let min = Infinity;
+            let max = -Infinity;
+            let minOccurrences = 0;
+            let maxOccurrences = 0;
+            let sumOfSquares = 0;
+            let product = 1;
+            let sumOfModules = 0;
+            let productOfModules = 1;
+            let positiveCount = 0;
+            let positiveProduct = 1;
+            let maxModule = 0;
+
+            for (let i = 0; i < length; i++) {
+                const num = Math.floor(Math.random() * 201) - 100;
+                sequenceStr += (i > 0 ? ', ' : '') + num;
+
+                // Сумма
+                sum += num;
+
+                // Минимум и максимум
+                if (num < min) {
+                    min = num;
+                    minOccurrences = 1;
+                } else if (num === min) {
+                    minOccurrences++;
+                }
+
+                if (num > max) {
+                    max = num;
+                    maxOccurrences = 1;
+                } else if (num === max) {
+                    maxOccurrences++;
+                }
+
+                // Квадраты
+                sumOfSquares += num ** 2;
+
+                // Произведение
+                product *= num;
+
+                // Модули
+                const absNum = Math.abs(num);
+                sumOfModules += absNum;
+                productOfModules *= absNum;
+
+                // Среднее геометрическое положительных
+                if (num > 0) {
+                    positiveCount++;
+                    positiveProduct *= num;
+                }
+
+                // Максимальный модуль
+                if (absNum > maxModule) {
+                    maxModule = absNum;
+                }
+            }
+
+            // Показать последовательность
+            document.getElementById('sequence').textContent = sequenceStr;
+
+            // Вывод результатов
+            const addResult = (description, value) => {
+                const p = document.createElement('p');
+                p.innerHTML = `<strong>${description}:</strong> ${value}`;
+                results.appendChild(p);
+            };
+
+            addResult('1. Сумма элементов', sum);
+            addResult('2. Минимальный элемент', min);
+            addResult('3. Максимальный элемент', max);
+            addResult('4. Количество вхождений минимального элемента', minOccurrences);
+            addResult('5. Количество вхождений максимального элемента', maxOccurrences);
+            addResult('6. Сумма квадратов', sumOfSquares);
+            addResult('7. Произведение элементов', product);
+            addResult('8. Сумма модулей', sumOfModules);
+            addResult('9. Произведение модулей', productOfModules);
+            addResult('10. Максимальный из модулей', maxModule);
+
+            if (positiveCount > 0) {
+                const geometricMean = Math.pow(positiveProduct, 1 / positiveCount);
+                addResult('11. Среднее геометрическое положительных чисел', geometricMean);
+            } else {
+                addResult('11. Среднее геометрическое положительных чисел', 'Н/Д');
+            }
+        }
+    </script>
+</body>
+</html>
+
